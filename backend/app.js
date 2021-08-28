@@ -11,7 +11,6 @@ const Error404 = require('./errors/ErrorNotFound');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
-console.log(process.env.NODE_ENV);
 
 const app = express();
 
