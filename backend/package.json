@@ -1,42 +1,38 @@
 {
-  "name": "express-mesto",
+  "name": "mesto-backend",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "lint": "npx eslint .",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "jest"
+    "lint": "npx eslint ./",
+    "fix": "eslint --fix ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liz4chernyshova/express-mesto.git"
-  },
+  "keywords": [
+    "express"
+  ],
   "author": "Liza Chernyshova",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/liz4chernyshova/express-mesto/issues"
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "celebrate": "^15.0.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "express-winston": "^4.1.0",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
   },
-  "homepage": "https://github.com/liz4chernyshova/express-mesto#readme",
   "devDependencies": {
     "eslint": "^7.31.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
-    "jest": "^27.0.6",
-    "nodemon": "^2.0.12",
-    "supertest": "^6.1.6"
-  },
-  "keywords": [],
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "celebrate": "^15.0.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-winston": "^4.1.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.5",
-    "validator": "^13.6.0",
-    "winston": "^3.3.3"
+    "nodemon": "^2.0.12"
   }
 }
