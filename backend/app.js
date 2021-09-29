@@ -23,8 +23,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(
   cors({
     origin: [
-      'https://api.chernyshova.backend.nomoredomains.rocks',
-      'http://api.chernyshova.backend.nomoredomains.rocks',
+      'https://domainname.lichernyshova.nomoredomains.club',
+      'http://domainname.lichernyshova.nomoredomains.club',
       'http://localhost:3000',
     ],
     thods: ['GET', 'PUT', 'POST', 'DELETE'],
