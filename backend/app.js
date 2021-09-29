@@ -27,6 +27,8 @@ app.use(
       'http://api.chernyshova.backend.nomoredomains.rocks',
       'http://localhost:3000',
     ],
+    thods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Authorization', 'Content-Type'],
     credentials: true,
   }),
 );
