@@ -1,7 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
@@ -23,24 +22,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-const corsAllowed = [
-  'https://domainname.lichernyshova.nomoredomains.club',
-  'https://api.chernyshova.backend.nomoredomains.rocks',
-  'https://localhost:3000',
-];
-
-require('dotenv').config();
-
 app.use(
   cors({
+    origin: [
+      'https://domainname.lichernyshova.nomoredomains.club',
+      'http://domainname.lichernyshova.nomoredomains.club',
+    ],
     credentials: true,
-    origin(origin, callback) {
-      if (corsAllowed.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
   }),
 );
 
@@ -51,8 +39,6 @@ app.use(helmet());
 app.use(express.json());
 
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
