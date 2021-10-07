@@ -1,5 +1,7 @@
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
 const usersRouter = require('./routes/user');
@@ -25,6 +27,7 @@ app.use(
     origin: [
       'https://domainname.lichernyshova.nomoredomains.club',
       'http://domainname.lichernyshova.nomoredomains.club',
+      'https://localhost:3000',
       'http://localhost:3000',
     ],
     thods: ['GET', 'PUT', 'POST', 'DELETE'],
@@ -33,7 +36,11 @@ app.use(
   }),
 );
 
+app.use(helmet());
+
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
