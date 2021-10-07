@@ -22,19 +22,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-app.use(
-  cors({
-    origin: [
-      'https://domainname.lichernyshova.nomoredomains.club',
-      'http://domainname.lichernyshova.nomoredomains.club',
-      'https://localhost:3000',
-      'http://localhost:3000',
-    ],
-    thods: ['GET', 'PUT', 'POST', 'DELETE'],
-    allowedHeaders: ['Authorization', 'Content-Type'],
-    credentials: true,
-  }),
-);
+app.use('*', cors());
+app.use(cors({
+  credentials: true,
+}));
 
 app.use(helmet());
 
