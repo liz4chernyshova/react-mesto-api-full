@@ -6,14 +6,16 @@ export class Api {
   
     getUserInfo() {
         return fetch(`${this._address}/users/me`, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponse)
     }
 
     getInitialCards() {
         return fetch(`${this._address}/cards`, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponse)
     }
@@ -22,6 +24,7 @@ export class Api {
         return fetch(`${this._address}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 name: data.name,
                 about: data.about
@@ -34,6 +37,7 @@ export class Api {
         return fetch(`${this._address}/cards`, {
             method: 'POST',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 name: cardData.name,
                 link: cardData.link
@@ -45,7 +49,8 @@ export class Api {
     likeCard(id, isLiked) {
         return fetch(`${this._address}/cards/likes/${id}`, {
             method: isLiked ? 'PUT': 'DELETE',
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponse)
     }
@@ -54,6 +59,7 @@ export class Api {
         return fetch(`${this._address}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 avatar: data.avatar
             })
@@ -64,7 +70,8 @@ export class Api {
     deleteCard(id) {
         return fetch(`${this._address}/cards/${id}`, {
             method: 'DELETE',
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponse)
     }
@@ -79,7 +86,7 @@ export class Api {
 }
 
 const api = new Api({
-    address: 'https://api.chernyshova.backend.nomoredomains.rocks',
+    address: 'http://localhost:3001',
     headers: {
       authorization:'fad10afc-9b25-4889-84c7-ba30776ae655',
       'Content-Type': 'application/json',

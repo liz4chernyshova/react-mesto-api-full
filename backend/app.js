@@ -11,7 +11,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login } = require('./controllers/user');
 const Error404 = require('./errors/ErrorNotFound');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
@@ -25,17 +25,16 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(
   cors({
     origin: [
-      'https://domainname.lichernyshova.nomoredomains.club',
-      'http://domainname.lichernyshova.nomoredomains.club',
-      'https://localhost:3000',
+      //'https://domainname.lichernyshova.nomoredomains.club',
+      //'http://domainname.lichernyshova.nomoredomains.club',
+      //'https://localhost:3000',
       'http://localhost:3000',
-      'https://62.84.119.7:3000',
-      'http://62.84.119.7:3000',
+      //'https://62.84.119.7:3000',
+      //'http://62.84.119.7:3000',
     ],
     credentials: true,
   }),
 );
-
 app.use(helmet());
 
 app.use(express.json());

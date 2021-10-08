@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.chernyshova.backend.nomoredomains.rocks';
+export const BASE_URL = 'http://localhost:3001';
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -14,6 +14,7 @@ export const register = (email, password) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({email, password})
     })
     .then(checkResponse)
@@ -27,6 +28,7 @@ export const authorize = (email, password) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({email, password})
     })
     .then(checkResponse)
@@ -40,7 +42,8 @@ return fetch(`${BASE_URL}/users/me`, {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
-    }
+    },
+    credentials: 'include',
 })
   .then(checkResponse)
 }
