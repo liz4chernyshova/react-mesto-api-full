@@ -34,8 +34,8 @@ function App() {
 
 
   React.useEffect(() => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
       auth.checkToken(jwt)
           .then((res) => {
               if (res) {
@@ -48,18 +48,18 @@ function App() {
               console.error(err);
           });
   }
-  }, []);
+  });
 
   React.useEffect(() => {
+    if(loggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardData]) => {
           setCurrentUser(userData);
           setCard(cardData);
       })
-      .catch((err) => {
-          console.log(err);
-      });
-  }, []);
+      .catch((err) => console.log(err))
+    }
+  }, [loggedIn]);
 
   function handleUpdateUser(data) {
     api.setUserInfo(data)

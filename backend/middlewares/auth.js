@@ -13,11 +13,11 @@ const auth = (req, res, next) => {
 
     try {
       payload = jwt.verify(token, JWT_SECRET);
+      req.user = payload;
+      next();
     } catch (err) {
       next(new Error401('Авторизация не прошла.'));
     }
-    req.user = payload;
-    next();
   }
 };
 

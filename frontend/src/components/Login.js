@@ -17,9 +17,6 @@ export default function Login(props) {
  
     function handleSubmit(evt) { 
         evt.preventDefault(); 
-        if (!email || !password) { 
-            return; 
-        } 
         props.onLogin(email, password); 
     } 
  

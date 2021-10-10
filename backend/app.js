@@ -27,7 +27,7 @@ app.use(
     origin: [
       //'https://domainname.lichernyshova.nomoredomains.club',
       //'http://domainname.lichernyshova.nomoredomains.club',
-      //'https://localhost:3000',
+      'https://localhost:3000',
       'http://localhost:3000',
       //'https://62.84.119.7:3000',
       //'http://62.84.119.7:3000',
