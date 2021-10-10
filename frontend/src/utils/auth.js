@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'https://api.chernyshova.backend.nomoredomains.rocks';
 
 const checkResponse = (res) => {
   if (res.ok) {

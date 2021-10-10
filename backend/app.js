@@ -3,7 +3,6 @@ require('dotenv').config();
 //const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-//const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
 const usersRouter = require('./routes/user');
@@ -30,12 +29,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      //'https://domainname.lichernyshova.nomoredomains.club',
-      //'http://domainname.lichernyshova.nomoredomains.club',
+      'https://domainname.lichernyshova.nomoredomains.club',
+      'http://domainname.lichernyshova.nomoredomains.club',
       'https://localhost:3000',
       'http://localhost:3000',
-      //'https://62.84.119.7:3000',
-      //'http://62.84.119.7:3000',
+      'https://62.84.119.7:3000',
+      'http://62.84.119.7:3000',
     ],
     credentials: true,
   }),
@@ -44,7 +43,6 @@ app.use(
 
 //app.use(express.json());
 
-//app.use(cookieParser());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
