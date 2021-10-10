@@ -1,7 +1,9 @@
 const express = require('express');
-const helmet = require('helmet');
+require('dotenv').config();
+//const helmet = require('helmet');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+//const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
 const usersRouter = require('./routes/user');
@@ -22,6 +24,9 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   cors({
     origin: [
@@ -35,11 +40,17 @@ app.use(
     credentials: true,
   }),
 );
-app.use(helmet());
+//app.use(helmet());
 
-app.use(express.json());
+//app.use(express.json());
 
-app.use(cookieParser());
+//app.use(cookieParser());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

@@ -39,7 +39,7 @@ function App() {
       auth.checkToken(jwt)
           .then((res) => {
               if (res) {
-                  setEmail(res.data.email);
+                  setEmail(res.email);
               }
               setLoggedIn(true);
               history.push("/");
@@ -48,7 +48,7 @@ function App() {
               console.error(err);
           });
   }
-  });
+  }, [history]);
 
   React.useEffect(() => {
     if(loggedIn) {
@@ -63,28 +63,32 @@ function App() {
 
   function handleUpdateUser(data) {
     api.setUserInfo(data)
-      .then((userData) => {
-        setCurrentUser(userData);
-        setIsLoading(true);
+      .then((res) => {
+        setCurrentUser({
+          ...currentUser,
+          name: res.data.name,
+          about: res.data.about,
+        });
         closeAllPopups();
       })
       .catch((err) => {
           console.log(err);
       })
-      .finally(() => setIsLoading(true));
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateAvatar(data) {
     api.setUserAvatar(data)
-    .then(userAvatar => {
-      setCurrentUser(userAvatar);
-      setIsLoading(true);
+    .then((res) => {
+      setCurrentUser({ 
+        ...currentUser, 
+        avatar: res.data.avatar 
+      });
       closeAllPopups();
     })
     .catch((err) => {
         console.log(err);
     })
-    .finally(() => setIsLoading(false));
   }
 
   function handleAddPlaceSubmit(data) {
@@ -124,6 +128,29 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
+  
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i === currentUser._id);
+    api.changeLike(card._id, !isLiked, localStorage.token).then((newCard) => {
+        setCard((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+        .catch((err) => console.log(err))
+}
+
+
+  /*function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then(() => {
+        setCard((cards) => cards.filter((c) => c._id !== card._id));
+        setIsConfirmPopupOpen(true);
+        setCardIdToDelete(card);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleCardDeleteConfirm(card) {
     api.deleteCard(card._id)
         .then(() => {
@@ -133,30 +160,23 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-  }
+  }*/
 
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.likeCard(card._id, !isLiked)
-      .then((newCard) => {
-          setCard((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-      })
-      .catch((err) => {
-        console.log(err);
-    });
-  }
+  function handleCardDelete(card){
+    setIsConfirmPopupOpen(true)
+    setCardIdToDelete(card);
+}
 
-  function handleCardDelete(card) {
+function handleCardDeleteConfirm(card) {
     api.deleteCard(card._id)
-      .then(() => {
-        setCard((cards) => cards.filter((c) => c._id !== card._id));
-        setIsConfirmPopupOpen(true);
-        setCardIdToDelete(card);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+        .then(() => {
+            const newCards = cards.filter((item) => item !== card)
+            setCard(newCards)
+            closeAllPopups()
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false))
+}
 
   function handleRegister(email, password) {
     auth.register(email, password)

@@ -46,14 +46,41 @@ export class Api {
         .then(this._checkResponse)
     }
 
-    likeCard(id, isLiked) {
+    likeCard(id, token) {
         return fetch(`${this._address}/cards/likes/${id}`, {
-            method: isLiked ? 'PUT': 'DELETE',
-            headers: this._headers,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
             credentials: 'include',
         })
-        .then(this._checkResponse)
+            .then(this._checkResponse)
     }
+
+
+    deslikeCard(id, token) {
+        return fetch(`${this._address}/cards/likes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            credentials: 'include',
+        })
+            .then(this._checkResponse)
+    }
+
+    changeLike(cardId, isLiked, token) {
+        if (!isLiked) {
+            return this.deslikeCard(cardId, token)
+        } else {
+            return this.likeCard(cardId, token)
+        }
+    }
+
 
     setUserAvatar(data) {
         return fetch(`${this._address}/users/me/avatar`, {
