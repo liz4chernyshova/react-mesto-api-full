@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-//const helmet = require('helmet');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
@@ -12,7 +12,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login } = require('./controllers/user');
 const Error404 = require('./errors/ErrorNotFound');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 
@@ -39,7 +39,7 @@ app.use(
     credentials: true,
   }),
 );
-//app.use(helmet());
+app.use(helmet());
 
 //app.use(express.json());
 
