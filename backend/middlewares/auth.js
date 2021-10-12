@@ -9,6 +9,7 @@ const auth = (req, res, next) => {
     next(new Error401('Необходима авторизация.'));
   } else {
     const token = cookie.replace('jwt=', '');
+    console.log(token);
     let payload;
 
     try {

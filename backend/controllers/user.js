@@ -1,12 +1,14 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 const Error400 = require('../errors/ErrorBadRequest');
 const Error401 = require('../errors/ErrorAuthorization');
 const Error404 = require('../errors/ErrorNotFound');
 const Error409 = require('../errors/ErrorConflict');
 const Error500 = require('../errors/ServerError');
-const { JWT_SECRET } = require('../utils/key');
+const nodemon = require('nodemon');
 
 const getAllUsers = (req, res, next) => {
   User.find({})
@@ -134,11 +136,27 @@ const login = (req, res, next) => {
     throw new Error400('Переданы некорректные данные.');
   }
 
-  return User.findUserByCredentials(email, password)
+/*  return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       res
         .cookie('jwt', token, { httpOnly: true, sameSite: true })
+        .send({ token });
+    })
+    .catch(() => {
+      throw new Error401('Необходимо авторизоваться.');
+    })
+    .catch(next);
+};*/
+
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
+      res.cookie('jwt', token, {
+        httpOnly: true,
+        sameSite: true,
+        secure: true,
+      })
         .send({ token });
     })
     .catch(() => {
