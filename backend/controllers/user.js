@@ -154,7 +154,7 @@ const login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
       res.cookie('jwt', token, {
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'none',
         secure: true,
       })
         .send({ token });
