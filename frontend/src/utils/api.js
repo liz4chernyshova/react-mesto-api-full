@@ -47,7 +47,7 @@ export class Api {
     }
 
     likeCard(id, token) {
-        return fetch(`${this._address}/cards/likes/${id}`, {
+        return fetch(`${this._address}/cards/${id}/likes`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -61,7 +61,7 @@ export class Api {
 
 
     deslikeCard(id, token) {
-        return fetch(`${this._address}/cards/likes/${id}`, {
+        return fetch(`${this._address}/cards/${id}/likes`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
