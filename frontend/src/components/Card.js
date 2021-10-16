@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 export default function Card(props) {
 
     const currentUser = React.useContext(CurrentUserContext);
-    const isOwn = props.card.owner._id === currentUser._id;
+    const isOwn = props.card.owner === currentUser._id;
     const cardDeleteButtonClassName = (
         `photo-element__delete-btn ${isOwn ? 'photo-element__delete-btn_active' : 'photo-element__delete-btn'}`
       );
